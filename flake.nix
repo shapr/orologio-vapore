@@ -174,19 +174,32 @@
 
         devshell = {
           name = "orologio-vapore-devshell";
+          buildInputs = with pkgs; [
+            libxkbcommon
+            libGL
+
+            # WINIT_UNIX_BACKEND=wayland
+            wayland
+          ];
           packages = with pkgs; [
             # Rust build inputs
             clang
             coreutils
 
-            # LSP's
+            # LSP
             rust-analyzer
 
             # Tools
             cargo-watch
             rustToolchain
             alejandra
+
+
           ];
+          postShellHook = ''
+          # XXX HOW TO MAKE THIS WORK?
+          # export LD_LIBRARY_PATH = ${nixpkgs.lib.makeLibraryPath buildInputs }
+          '';
         };
 
         env = [
@@ -194,7 +207,10 @@
             name = "RUSTFLAGS";
             eval = "\"${builtins.toString craneCommon.RUSTFLAGS}\"";
           }
+
         ];
+        # LD_LIBRARY_PATH = "${nixpkgs.lib.makeLibraryPath buildInputs}";
+        # LD_LIBRARY_PATH = "${nixpkgs.lib.makeLibraryPath devshell}";
         };
       });
     };
