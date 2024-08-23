@@ -1,0 +1,12 @@
+[package]
+name = "orologio-vapore"
+version = "0.1.0"
+authors = ["Shae Erisson <shae@ScannedInAvian.com>"]
+edition = "2021"
+
+[dependencies]
+eframe = { version = "*", features = [ "default" ] }
+egui_extras = { version = "*", features = [ "default", "all_loaders"] }
+env_logger = { version = "*", default-features = false, features = ["auto-color", "humantime"] }
+image = { version = "*", features = ["jpeg", "png"] }
+egui = "*"
